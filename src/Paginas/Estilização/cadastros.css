@@ -1,0 +1,144 @@
+/* Estilos CSS personalizados */
+
+/* Estilos para o corpo do formulário */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+  
+  /* Estilos para o formulário */
+  form {
+    max-width: 800px; /* Largura máxima do formulário */
+    margin: 20px auto; /* Centraliza o formulário */
+    padding: 20px;
+    border: 1px solid #ddd; /* Cor da borda */
+    border-radius: 12px; /* Bordas arredondadas */
+    background-color: #ffffff; /* Fundo branco */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  /* Estilo do título do formulário */
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* Cor do texto */
+  }
+  
+  /* Estilos para os grupos de formulário */
+  .form-group {
+    margin-bottom: 20px; /* Espaçamento entre os grupos de formulário */
+    display: flex;
+    flex-direction: column; /* Alinha os campos em coluna */
+  }
+  
+  /* Estilos para rótulos dos campos */
+  .form-group label {
+    font-weight: bold;
+    color: #555; /* Cor do rótulo */
+  }
+  
+  /* Estilos para campos de entrada */
+  .form-group input,
+  .form-group select {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc; /* Cor da borda */
+    border-radius: 6px; /* Bordas arredondadas */
+    outline: none;
+    transition: border-color 0.3s; /* Transição suave */
+  }
+  
+  /* Estilo ao focar nos campos */
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #007bff; /* Cor da borda ao focar */
+  }
+  
+  /* Estilos para botões */
+  .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; /* Cor do texto do botão */
+    border: none; /* Remove borda padrão */
+    border-radius: 6px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s; /* Transição suave */
+  }
+  
+  /* Estilo dos botões de ação */
+  .btn-gravar {
+    background-color: #28a745; /* Verde para o botão "Gravar" */
+  }
+  
+  .btn-editar {
+    background-color: #007bff; /* Azul para o botão "Editar" */
+  }
+  
+  .btn-excluir {
+    background-color: #dc3545; /* Vermelho para o botão "Excluir" */
+  }
+  
+  /* Estilo dos botões ao passar o mouse */
+  .btn-gravar:hover {
+    background-color: #218838; /* Verde escuro */
+  }
+  
+  .btn-editar:hover {
+    background-color: #0056b3; /* Azul escuro */
+  }
+  
+  .btn-excluir:hover {
+    background-color: #c82333; /* Vermelho escuro */
+  }
+  
+  /* Estilo para campos válidos */
+  .is-valid {
+    border-color: green !important; /* Cor da borda ao estar válido */
+  }
+  
+  /* Estilos para tabelas */
+  table {
+    width: 100%; /* Tabela ocupa 100% do espaço disponível */
+    border-collapse: collapse; /* Remove espaços entre as bordas */
+    margin-top: 20px; /* Margem superior para separar da seção anterior */
+  }
+  
+  th, td {
+    padding: 12px; /* Espaçamento interno das células */
+    border: 1px solid #ddd; /* Cor da borda das células */
+    text-align: left; /* Alinhamento à esquerda */
+  }
+  
+  th {
+    background-color: #f2f2f2; /* Cor de fundo para cabeçalhos */
+    font-weight: bold; /* Texto em negrito para cabeçalhos */
+  }
+  
+  /* Estilo para botões com ícones */
+  .btn-icon {
+    display: inline-flex; /* Alinha ícone e texto */
+    align-items: center; /* Centraliza verticalmente */
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .btn-icon i {
+    margin-right: 5px; /* Espaçamento entre ícone e texto */
+    color: #fff; /* Cor do ícone */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    form {
+      width: 90%; /* Largura maior em telas menores */
+      padding: 15px; /* Menos padding em telas menores */
+    }
+  
+    .form-group {
+      flex-direction: column; /* Muda a direção para coluna em telas menores */
+    }
+  }
+  

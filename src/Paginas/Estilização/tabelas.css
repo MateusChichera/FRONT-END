@@ -1,0 +1,113 @@
+/* Estilos para a tabela de clientes */
+.table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaços entre as células */
+    margin-top: 20px; /* Espaçamento acima da tabela */
+    margin: 0 auto; /* Centraliza a tabela */
+}
+
+.table th,
+.table td {
+    padding: 8px; /* Reduz o espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto à esquerda */
+}
+
+.table th {
+    background-color: #6D83F2; /* Cor de fundo do cabeçalho */
+    color: white; /* Cor do texto do cabeçalho */
+    border-bottom: 2px solid #ccc; /* Borda inferior do cabeçalho */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Cor de fundo para linhas ímpares */
+}
+
+.table-striped tbody tr:hover {
+    background-color: #eaeaea; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilos para o grupo de busca */
+.input-group {
+    display: flex;
+    align-items: center; /* Alinha os itens no centro verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    margin-bottom: 20px; /* Espaçamento abaixo do grupo de busca */
+}
+
+/* Estilos para o select e inputs de busca */
+.input-busca,
+.form-control {
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 1rem; /* Tamanho da fonte */
+    flex: 1; /* Ocupa o espaço disponível */
+    margin-right: 10px; /* Espaçamento à direita */
+}
+
+.input-busca:focus,
+.form-control:focus {
+    border-color: #6D83F2; /* Cor da borda no foco */
+    box-shadow: 0 0 5px rgba(109, 131, 242, 0.5); /* Sombra no foco */
+}
+
+/* Estilos para os botões */
+.btn {
+    display: flex; /* Para centralizar o ícone e o texto */
+    align-items: center; /* Alinhamento vertical */
+}
+
+/* Agrupamento dos botões de ação */
+.btn-group {
+    display: flex; /* Utiliza flexbox para os botões ficarem lado a lado */
+    gap: 5px; /* Espaçamento entre os botões */
+}
+
+/* Estilos para os botões de ação na tabela */
+.btn-success { /* Para o botão de editar */
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Cor mais escura ao passar o mouse */
+}
+
+.btn-danger { /* Para o botão de excluir */
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Cor mais escura ao passar o mouse */
+}
+
+/* Estilos para as mensagens de erro e sucesso */
+.error {
+    color: #e74c3c; /* Cor para mensagens de erro */
+}
+
+.success {
+    color: #2ecc71; /* Cor para mensagens de sucesso */
+}
+.btn-primary {
+    background-color: blue; /* Cor azul para o botão habilitado */
+    border-color: blue; /* Cor da borda azul */
+    color: white; /* Cor do texto */
+  }
+  
+  .btn-disabled {
+    background-color: #d3d3d3; /* Cor cinza */
+    border-color: #d3d3d3; /* Cor da borda cinza */
+    color: #888; /* Cor do texto cinza */
+    cursor: not-allowed; /* Muda o cursor para indicar que está desabilitado */
+  }
+  

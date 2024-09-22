@@ -1,0 +1,11 @@
+/* src/App.css */
+body {
+  font-family: 'Roboto', sans-serif; /* Aplica a fonte a todo o corpo da aplicação */
+  margin: 0; /* Remove margens padrão */
+  padding: 0; /* Remove espaçamento padrão */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura/altura */
+}
+
+.App {
+  padding: 20px; /* Exemplo de espaçamento na aplicação */
+}
