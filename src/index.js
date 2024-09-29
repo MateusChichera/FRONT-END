@@ -24,6 +24,7 @@ import EditarFuncionarios from './Paginas/Funcionarios/EditarFuncionarios.jsx';
 import AgendamentoSalas from './Paginas/Agendar/Agendar.jsx';
 import TabelaAgendamentos from './Paginas/Agendar/TabelaAgendamentos.jsx';
 import EditarAgendamento from './Paginas/Agendar/EditarAgendamentos.jsx';
+import AssociarPlanos from './Paginas/Associar/Associar.jsx';
 import PrivateRoute from './Componentes/PrivateRoute'; // Importa o componente de proteção de rota
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/buscar/funcionarios',
         element: <PrivateRoute element={<TabelaFuncionarios />} />, // Protege a página inicial
+      },
+      {
+        path: '/associar',
+        element: <PrivateRoute element={<AssociarPlanos />} />, // Protege a página inicial
       },
       {
         path: '/buscar/agendamentos',

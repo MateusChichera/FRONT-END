@@ -95,6 +95,12 @@ function NavBar() {
                                         <span className="mx-2" style={{ color: 'white' }}>Funcionario</span>
                                     </Link>
                                 </li>
+                                <li className="nav-link">
+                                    <Link to='/associar'>
+                                        <FaCogs />
+                                        <span className="mx-2" style={{ color: 'white' }}>Associar Planos</span>
+                                    </Link>
+                                </li>
                             </ul>
                         )}
                     </li>
