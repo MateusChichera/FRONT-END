@@ -11,7 +11,6 @@ function TabelaAgendamentos() {
   // Fetch padrão para carregar todos os agendamentos
   useEffect(() => {
     fetchAgendamentos();
-    // Define a data atual como padrão
   }, []);
 
   const fetchAgendamentos = async () => {
@@ -51,6 +50,7 @@ function TabelaAgendamentos() {
     }
   };
 
+  // Função para excluir o agendamento
   const excluirAgendamento = async (id) => {
     if (window.confirm('Deseja realmente excluir este agendamento?')) {
       try {
@@ -60,10 +60,6 @@ function TabelaAgendamentos() {
         if (response.ok) {
           alert('Agendamento excluído com sucesso');
           setAgendamentos(agendamentos.filter((agendamento) => agendamento.age_id !== id));
-        } else {
-          alert(`Agendamento excluido com sucesso`);
-          setAgendamentos(agendamentos.filter((agendamento) => agendamento.age_id !== id));
-
         }
       } catch (error) {
         alert('Erro ao excluir agendamento: ' + error.message);
@@ -71,10 +67,31 @@ function TabelaAgendamentos() {
     }
   };
 
+  // Função para editar o agendamento
   const editarAgendamento = (agendamento) => {
-    // Redireciona para a rota de edição com os dados do agendamento
     navigate(`/agendamento/editar/${agendamento.age_id}`, { state: agendamento });
   };
+
+  // Função para aprovar o agendamento (atualizar age_status para "aprovado")
+  const aprovarAgendamento = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:4001/agendamento/aprovar/${id}`, {
+        method: 'PUT',
+      });
+      
+        alert('Agendamento aprovado com sucesso');
+        // Atualizar a lista de agendamentos após a aprovação
+        setAgendamentos(
+          agendamentos.map((agendamento) =>
+            agendamento.age_id === id ? { ...agendamento, age_status: 'aprovado' } : agendamento
+          )
+        );
+     
+    } catch (error) {
+      alert('Erro ao aprovar agendamento: ' + error.message);
+    }
+  };
+
   return (
     <div className="mt-5 text-center"> {/* Centraliza o conteúdo */}
       <h1 className="mt-3">Lista de agendamentos</h1>
@@ -104,6 +121,7 @@ function TabelaAgendamentos() {
               <th>Data</th>
               <th>Horário de Início</th>
               <th>Horário de Fim</th>
+              <th>Status</th> {/* Nova coluna de status */}
               <th>Ações</th>
             </tr>
           </thead>
@@ -116,14 +134,28 @@ function TabelaAgendamentos() {
                   <td>{new Date(agendamento.age_data).toLocaleDateString()}</td>
                   <td>{agendamento.age_horario_inicio}</td>
                   <td>{agendamento.age_horario_fim}</td>
+                  <td>{agendamento.age_status}</td> {/* Exibe o status */}
                   <td>
-                  <button 
-                        className="btn btn-success btn-sm me-1" 
-                        onClick={() => editarAgendamento(agendamento)}
-                      >
-                        <i className="fas fa-edit"></i>
-                      </button>
-                    <button className="btn btn-danger btn-sm" onClick={() => excluirAgendamento(agendamento.age_id)}>
+                    {agendamento.age_status === 'pendente' && (
+                      <>
+                        <button
+                          className="btn btn-success btn-sm me-1"
+                          onClick={() => aprovarAgendamento(agendamento.age_id)}
+                        >
+                          Aprovar
+                        </button>
+                      </>
+                    )}
+                    <button
+                      className="btn btn-primary btn-sm me-1"
+                      onClick={() => editarAgendamento(agendamento)}
+                    >
+                      <i className="fas fa-edit"></i>
+                    </button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => excluirAgendamento(agendamento.age_id)}
+                    >
                       <i className="fas fa-trash-alt"></i>
                     </button>
                   </td>
@@ -131,7 +163,7 @@ function TabelaAgendamentos() {
               ))
             ) : (
               <tr>
-                <td colSpan="6">Nenhum agendamento encontrado.</td>
+                <td colSpan="7">Nenhum agendamento encontrado.</td>
               </tr>
             )}
           </tbody>

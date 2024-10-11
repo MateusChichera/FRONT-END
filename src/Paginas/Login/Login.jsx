@@ -40,7 +40,8 @@ const Login = () => {
             const response = await axios.post('http://localhost:4001/funcionarios/autenticar', { id: selectedFuncionario, senha });
             setSuccess('Login bem-sucedido!');
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('nome', response.data.nome); // Armazena o nome do funcionário
+            localStorage.setItem('nome', response.data.nome);
+            localStorage.setItem('setor', response.data.setor); // Armazena o nome do funcionário
             navigate('/home'); // Redireciona para a página inicial após o login
         } catch (err) {
             setError('Credenciais inválidas. Tente novamente.');

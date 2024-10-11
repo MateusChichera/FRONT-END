@@ -10,12 +10,17 @@ function NavBar() {
     const [showBuscarSubmenu, setShowBuscarSubmenu] = useState(false);
     const [showAgendamentoSubmenu, setShowAgendamentoSubmenu] = useState(false); // Novo estado para o submenu de agendamentos
     const [userName, setUserName] = useState('');
+    const [userSetor, setUserSetor] = useState(''); // Adiciona estado para o setor do usuário
     const navigate = useNavigate();
 
     useEffect(() => {
         const storedUserName = localStorage.getItem('nome');
+        const storedUserSetor = localStorage.getItem('setor'); // Recupera o setor do localStorage
         if (storedUserName) {
             setUserName(storedUserName);
+        }
+        if (storedUserSetor) {
+            setUserSetor(storedUserSetor); // Define o setor no estado
         }
     }, []);
 
@@ -44,8 +49,14 @@ function NavBar() {
     const handleLogout = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('nome');
+        localStorage.removeItem('setor');
         navigate('/login');
     };
+
+    // Funções para checar permissões
+    const isAdministrador = userSetor === 'administrador';
+    const isFinanceiro = userSetor === 'financeiro';
+    const isSecretaria = userSetor === 'secretaria';
 
     return (
         <>
@@ -63,6 +74,8 @@ function NavBar() {
                             <span className="mx-2" style={{ color: 'white' }}>Home</span>
                         </Link>
                     </li>
+
+                    {/* Menu Cadastrar - Verificar permissões */}
                     <li className="nav-link">
                         <div onClick={handleSubmenu} style={{ cursor: 'pointer' }}>
                             <FaCogs />
@@ -71,30 +84,36 @@ function NavBar() {
                         </div>
                         {showSubmenu && (
                             <ul className="nav flex-column text-white w-100 submenu">
-                                <li className="nav-link">
-                                    <Link to='/salas'>
-                                        <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Sala</span>
-                                    </Link>
-                                </li>
+                                {!isSecretaria && (
+                                    <li className="nav-link">
+                                        <Link to='/salas'>
+                                            <FaCogs />
+                                            <span className="mx-2" style={{ color: 'white' }}>Sala</span>
+                                        </Link>
+                                    </li>
+                                )}
                                 <li className="nav-link">
                                     <Link to='/clientes'>
                                         <FaCogs />
                                         <span className="mx-2" style={{ color: 'white' }}>Cliente</span>
                                     </Link>
                                 </li>
-                                <li className="nav-link">
-                                    <Link to='/planos'>
-                                        <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Plano</span>
-                                    </Link>
-                                </li>
-                                <li className="nav-link">
-                                    <Link to='/funcionario'>
-                                        <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Funcionario</span>
-                                    </Link>
-                                </li>
+                                {!isSecretaria && (
+                                    <li className="nav-link">
+                                        <Link to='/planos'>
+                                            <FaCogs />
+                                            <span className="mx-2" style={{ color: 'white' }}>Plano</span>
+                                        </Link>
+                                    </li>
+                                )}
+                                {!isSecretaria && !isFinanceiro && (
+                                    <li className="nav-link">
+                                        <Link to='/funcionario'>
+                                            <FaCogs />
+                                            <span className="mx-2" style={{ color: 'white' }}>Funcionario</span>
+                                        </Link>
+                                    </li>
+                                )}
                                 <li className="nav-link">
                                     <Link to='/associar'>
                                         <FaCogs />
@@ -104,6 +123,8 @@ function NavBar() {
                             </ul>
                         )}
                     </li>
+
+                    {/* Menu Buscar - Verificar permissões */}
                     <li className="nav-link">
                         <div onClick={handleBuscarSubmenu} style={{ cursor: 'pointer' }}>
                             <FaCogs />
@@ -112,30 +133,36 @@ function NavBar() {
                         </div>
                         {showBuscarSubmenu && (
                             <ul className="nav flex-column text-white w-100 submenu">
-                                <li className="nav-link">
-                                    <Link to='/buscar/salas'>
-                                        <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Salas</span>
-                                    </Link>
-                                </li>
+                                {!isSecretaria && (
+                                    <li className="nav-link">
+                                        <Link to='/buscar/salas'>
+                                            <FaCogs />
+                                            <span className="mx-2" style={{ color: 'white' }}>Salas</span>
+                                        </Link>
+                                    </li>
+                                )}
                                 <li className="nav-link">
                                     <Link to='/buscar'>
                                         <FaCogs />
                                         <span className="mx-2" style={{ color: 'white' }}>Clientes</span>
                                     </Link>
                                 </li>
-                                <li className="nav-link">
-                                    <Link to='/buscar/planos'>
-                                        <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Planos</span>
-                                    </Link>
-                                </li>
-                                <li className="nav-link">
-                                    <Link to='/buscar/funcionarios'>
-                                        <FaCogs />
-                                        <span className="mx-2" style={{ color: 'white' }}>Funcionarios</span>
-                                    </Link>
-                                </li>
+                                {!isSecretaria && (
+                                    <li className="nav-link">
+                                        <Link to='/buscar/planos'>
+                                            <FaCogs />
+                                            <span className="mx-2" style={{ color: 'white' }}>Planos</span>
+                                        </Link>
+                                    </li>
+                                )}
+                                {!isSecretaria && !isFinanceiro && (
+                                    <li className="nav-link">
+                                        <Link to='/buscar/funcionarios'>
+                                            <FaCogs />
+                                            <span className="mx-2" style={{ color: 'white' }}>Funcionarios</span>
+                                        </Link>
+                                    </li>
+                                )}
                                 <li className="nav-link">
                                     <Link to='/buscar/agendamentos'>
                                         <FaCogs />
@@ -145,6 +172,8 @@ function NavBar() {
                             </ul>
                         )}
                     </li>
+
+                    {/* Menu Agendamentos */}
                     <li className="nav-link">
                         <div onClick={handleAgendamentoSubmenu} style={{ cursor: 'pointer' }}>
                             <FaCogs />
@@ -162,6 +191,7 @@ function NavBar() {
                             </ul>
                         )}
                     </li>
+
                     <li className="nav-link">
                         <button className="btn btn-danger w-100" onClick={handleLogout}>
                             Sair
@@ -169,8 +199,7 @@ function NavBar() {
                     </li>
                 </ul>
             </div>
-            <div className="p-1 my-container">
-            </div>
+            <div className="p-1 my-container"></div>
             <div style={{ paddingLeft: show ? '250px' : '0' }}>
                 <Container>
                     <Outlet />
