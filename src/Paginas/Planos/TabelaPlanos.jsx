@@ -4,11 +4,11 @@ import '../Estilização/tabelas.css';
 function TabelaPlanos() {
   const [planos, setPlanos] = useState([]);
   const [busca, setBusca] = useState('');
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchPlanos = async () => {
       try {
-        const response = await fetch('http://localhost:4001/planos');
+        const response = await fetch(`${apiUrl}/planos`);
         if (response.ok) {
           const data = await response.json();
           setPlanos(data);

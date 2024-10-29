@@ -4,11 +4,11 @@ import '../Estilização/tabelas.css';
 function TabelaFuncionarios() {
   const [funcionarios, setFuncionarios] = useState([]);
   const [busca, setBusca] = useState('');
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchFuncionarios = async () => {
       try {
-        const response = await fetch('http://localhost:4001/funcionarios');
+        const response = await fetch(`${apiUrl}/funcionarios`);
         if (response.ok) {
           const data = await response.json();
           setFuncionarios(data);
@@ -25,7 +25,7 @@ function TabelaFuncionarios() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:4001/funcionarios/buscar/${busca}`);
+      const response = await fetch(`${apiUrl}/funcionarios/buscar/${busca}`);
       if (response.ok) {
         const data = await response.json();
         setFuncionarios(data);
@@ -40,7 +40,7 @@ function TabelaFuncionarios() {
   const handleExcluir = async (id, nome) => {
     if (window.confirm(`Deseja mesmo excluir o funcionário ${nome}?`)) {
       try {
-        const response = await fetch(`http://localhost:4001/funcionarios/${id}`, {
+        const response = await fetch(`${apiUrl}/funcionarios/${id}`, {
           method: 'DELETE',
         });
 

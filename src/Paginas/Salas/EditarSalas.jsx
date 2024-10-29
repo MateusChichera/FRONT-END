@@ -10,7 +10,7 @@ function EditarSalas() {
   const [tipoSala, setTipoSala] = useState('COWORKING');
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const validarNome = (nome) => {
     const regex = /^[A-Za-z\s]+$/;
     return nome.length >= 3 && regex.test(nome);
@@ -76,7 +76,7 @@ function EditarSalas() {
   useEffect(() => {
     const fetchSala = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/salas/${id}`);
+        const response = await fetch(`${apiUrl}/salas/${id}`);
         if (response.ok) {
           const data = await response.json();
           // Atribuir os valores recuperados aos campos de entrada diretamente
@@ -116,7 +116,7 @@ function EditarSalas() {
       };
   
       try{
-        const response = await fetch(`http://localhost:4001/salas/${id}`,{
+        const response = await fetch(`${apiUrl}/salas/${id}`,{
           method : 'PUT',
           headers:{
             'Content-Type': 'application/json'

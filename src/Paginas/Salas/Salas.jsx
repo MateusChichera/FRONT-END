@@ -7,7 +7,7 @@ function Salas() {
   const [capacidadeValida, setCapacidadeValida] = useState(false);
   const [observacoesValidas, setObservacoesValidas] = useState(false);
   const [tipoSala, setTipoSala] = useState('COWORKING');
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const validarNome = (nome) => {
     const regex = /^[A-Za-z\s]+$/;
     return nome.length >= 3 && regex.test(nome);
@@ -87,7 +87,7 @@ function Salas() {
       };
   
       try{
-        const response = await fetch('http://localhost:4001/salas',{
+        const response = await fetch(`${apiUrl}/salas`,{
           method : 'POST',
           headers:{
             'Content-Type': 'application/json'

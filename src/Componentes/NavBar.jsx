@@ -66,7 +66,7 @@ function NavBar() {
                 </button>
                 <ul className="nav flex-column text-white w-100">
                     <li className="nav-link">
-                        <span className="h3 text-white my-2">Olá, {userName}</span>
+                        <span className="h3 text-white my-2">Olá,{userName} ({userSetor})</span>
                     </li>
                     <li className="nav-link">
                         <Link to='/home'>

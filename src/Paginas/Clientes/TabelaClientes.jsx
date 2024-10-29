@@ -6,11 +6,11 @@ function TabelaClientes({ setMostrarTabela }) {
   const [clientes, setClientes] = useState([]);
   const [busca, setBusca] = useState('');
   const [tipoBusca, setTipoBusca] = useState('nome');
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const response = await fetch('http://localhost:4001/clientes');
+        const response = await fetch(`${apiUrl}/clientes`);
         if (response.ok) {
           const data = await response.json();
           setClientes(data);
@@ -27,7 +27,7 @@ function TabelaClientes({ setMostrarTabela }) {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:4001/clientes/buscar/${busca}`);
+      const response = await fetch(`${apiUrl}/clientes/buscar/${busca}`);
       if (response.ok) {
         const data = await response.json();
         setClientes(data);
@@ -47,7 +47,7 @@ function TabelaClientes({ setMostrarTabela }) {
   const handleDelete = async (id,nome,razao) => {
     if (window.confirm(`Deseja mesmo excluir o horário de ${nome} ${razao}?`)) {
       try {
-        const response = await fetch(`http://localhost:4001/clientes/${id}`, {
+        const response = await fetch(`${apiUrl}/clientes/${id}`, {
           method: 'DELETE',
         });
 

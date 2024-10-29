@@ -61,7 +61,7 @@ function Planos() {
       const nome = document.getElementById('nome').value;
       const valor = document.getElementById('quantidade').value;
       const dias = document.getElementById('vigencia').value;
-
+      const apiUrl = process.env.REACT_APP_API_URL;
       const plano ={
         pla_nome: nome,
         pla_valor: valor,
@@ -69,7 +69,7 @@ function Planos() {
       };
       console.log(plano);
       try{
-        const response = await fetch('http://localhost:4001/planos',{
+        const response = await fetch(`${apiUrl}/planos`,{
           method : 'POST',
           headers:{
             'Content-Type': 'application/json'

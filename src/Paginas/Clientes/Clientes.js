@@ -1,5 +1,5 @@
 // Clientes.js
-
+const apiUrl = process.env.REACT_APP_API_URL;
 export const validarCPF = (cpf) => {
   cpf = cpf.replace(/[^\d]+/g, '');
   if (cpf.length !== 11) return false;
@@ -57,13 +57,13 @@ export const buscarCnpj = async (cnpj) => {
   // Remove todos os caracteres que não são números
   const cnpjNumerico = cnpj.replace(/[^\d]/g, '');
   
-  const response = await fetch(`http://localhost:4001/clientes/cnpj/${cnpjNumerico}`);
+  const response = await fetch(`${apiUrl}/cnpj/${cnpjNumerico}`);
   if (!response.ok) throw new Error('Erro ao buscar CNPJ');
   return response.json();
 };
 
 export const buscaPlano = async()=>{
-  const response = await fetch (`http://localhost:4001/planos`)
+  const response = await fetch (`${apiUrl}/planos`)
   if(!response.ok) throw new Error('Erro ao buscar planos');
   return response.json();
 }

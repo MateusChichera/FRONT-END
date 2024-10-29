@@ -27,7 +27,7 @@ function Clientes() {
   const [cli_email, setCli_email] = useState('');
   const [mostrarTabela, setMostrarTabela] = useState(false);
   const [clienteSelecionado, setClienteSelecionado] = useState(null);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   
 
 
@@ -161,7 +161,7 @@ function Clientes() {
     };
 
     try {
-      const response = await fetch('http://localhost:4001/clientes', {
+      const response = await fetch(`${apiUrl}/clientes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

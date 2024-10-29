@@ -7,7 +7,7 @@ function TabelaAgendamentos() {
   const [dataBusca, setDataBusca] = useState(''); // Valor de busca (data)
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   // Fetch padrão para carregar todos os agendamentos
   useEffect(() => {
     fetchAgendamentos();
@@ -16,7 +16,7 @@ function TabelaAgendamentos() {
   const fetchAgendamentos = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:4001/agendamento');
+      const response = await fetch(`${apiUrl}/agendamento`);
       const data = await response.json();
       setAgendamentos(data);
     } catch (error) {
@@ -30,7 +30,7 @@ function TabelaAgendamentos() {
   const buscarAgendamentos = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:4001/agendamento/data', {
+      const response = await fetch(`${apiUrl}/agendamento/data`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ function TabelaAgendamentos() {
   const excluirAgendamento = async (id) => {
     if (window.confirm('Deseja realmente excluir este agendamento?')) {
       try {
-        const response = await fetch(`http://localhost:4001/agendamento/${id}`, {
+        const response = await fetch(`${apiUrl}/agendamento/${id}`, {
           method: 'DELETE',
         });
         if (response.ok) {
@@ -75,7 +75,7 @@ function TabelaAgendamentos() {
   // Função para aprovar o agendamento (atualizar age_status para "aprovado")
   const aprovarAgendamento = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4001/agendamento/aprovar/${id}`, {
+      const response = await fetch(`${apiUrl}/agendamento/aprovar/${id}`, {
         method: 'PUT',
       });
       

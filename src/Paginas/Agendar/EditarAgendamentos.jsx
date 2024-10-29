@@ -17,11 +17,11 @@ function EditarAgendamento() {
   const [horarioInicio, setHorarioInicio] = useState(agendamento.age_horario_inicio);
   const [horarioFim, setHorarioFim] = useState(agendamento.age_horario_fim);
   const [disponivel, setDisponivel] = useState(true);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     async function fetchSalas() {
       try {
-        const response = await fetch('http://localhost:4001/salas');
+        const response = await fetch(`${apiUrl}/salas`);
         const data = await response.json();
         setSalas(data);
       } catch (error) {
@@ -31,7 +31,7 @@ function EditarAgendamento() {
 
     async function fetchClientes() {
       try {
-        const response = await fetch('http://localhost:4001/clientes');
+        const response = await fetch(`${apiUrl}/clientes`);
         const data = await response.json();
         setClientes(data);
         setClientesFiltrados(data);
@@ -55,7 +55,7 @@ function EditarAgendamento() {
 
   const verificarDisponibilidade = async () => {
     try {
-      const response = await fetch('http://localhost:4001/agendamento/verificar-disponibilidade', {
+      const response = await fetch(`${apiUrl}/salas/agendamento/verificar-disponibilidade`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -78,7 +78,7 @@ function EditarAgendamento() {
     event.preventDefault();
     if (disponivel) {
         try {
-            const response = await fetch(`http://localhost:4001/agendamento/${agendamento.age_id}`, {
+          const response = await fetch(`${apiUrl}/agendamento/${agendamento.age_id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

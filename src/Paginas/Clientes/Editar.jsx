@@ -27,7 +27,7 @@ function Editar() {
   const [cli_cid, setCli_cid] = useState('');
   const [cli_email, setCli_email] = useState('');
   const [mostrarTabela, setMostrarTabela] = useState(false);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const formatarData = (dateString) => {
@@ -46,7 +46,7 @@ function Editar() {
   useEffect(() => {
     const fetchCliente = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/clientes/${id}`);
+        const response = await fetch(`${apiUrl}/clientes/${id}`);
         if (response.ok) {
           const data = await response.json();
           // Atualizar o estado local com os dados do cliente
@@ -199,7 +199,7 @@ function Editar() {
     };
 
     try {
-        const response = await fetch(`http://localhost:4001/clientes/${id}`, {
+        const response = await fetch(`${apiUrl}/clientes/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

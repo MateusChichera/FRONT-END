@@ -12,11 +12,11 @@ const Login = () => {
     const [funcionarios, setFuncionarios] = useState([]);
     const [selectedFuncionario, setSelectedFuncionario] = useState('');
     const navigate = useNavigate();
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(() => {
         const fetchFuncionarios = async () => {
             try {
-                const response = await axios.get('http://localhost:4001/funcionarios');
+                const response = await axios.get(`${apiUrl}/funcionarios`);
                 setFuncionarios(response.data);
             } catch (err) {
                 setError('Erro ao carregar dados dos funcionários.');
@@ -37,7 +37,7 @@ const Login = () => {
         }
     
         try {
-            const response = await axios.post('http://localhost:4001/funcionarios/autenticar', { id: selectedFuncionario, senha });
+            const response = await axios.post(`${apiUrl}/funcionarios/autenticar`, { id: selectedFuncionario, senha });
             setSuccess('Login bem-sucedido!');
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('nome', response.data.nome);
@@ -63,7 +63,7 @@ const Login = () => {
                         <option value="">Selecione um funcionário</option>
                         {funcionarios.map(func => (
                             <option key={func.fun_id} value={func.fun_id}>
-                                {func.fun_nome}
+                                {func.fun_nome} ({func.fun_setor})
                             </option>
                         ))}
                     </select>

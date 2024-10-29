@@ -3,11 +3,11 @@ import '../Estilização/tabelas.css';
 function TabelaSalas() {
   const [salas, setSalas] = useState([]);
   const [busca, setBusca] = useState('');
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchSalas = async () => {
       try {
-        const response = await fetch('http://localhost:4001/salas');
+        const response = await fetch(`${apiUrl}/salas`);
         if (response.ok) {
           const data = await response.json();
           setSalas(data);
@@ -25,7 +25,7 @@ function TabelaSalas() {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:4001/salas/buscar/${busca}`);
+      const response = await fetch(`${apiUrl}/salas/buscar/${busca}`);
       if (response.ok) {
         const data = await response.json();
         setSalas(data);
@@ -43,7 +43,7 @@ function TabelaSalas() {
   const handleExcluir = async (id,nome) => {
     if (window.confirm(`Deseja mesmo excluir a sala ${nome}?`)) {
         try {
-          const response = await fetch(`http://localhost:4001/salas/${id}`, {
+          const response = await fetch(`${apiUrl}/salas/${id}`, {
             method: 'DELETE',
           });
   

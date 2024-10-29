@@ -7,7 +7,7 @@ function EditarPlanos() {
   const [planoValido, setPlanoValido] = useState(false);
   const [valorValido, setValorValido] = useState(false);
   const [vigenciaValida, setVigenciaValida] = useState(false);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const {id} = useParams();
   const navigate = useNavigate();
 
@@ -62,7 +62,7 @@ function EditarPlanos() {
   useEffect(() => {
     const fetchPlanos = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/planos/${id}`);
+        const response = await fetch(`${apiUrl}/planos/${id}`);
         if (response.ok) {
           const data = await response.json();
           // Atribuir os valores recuperados aos campos de entrada diretamente
@@ -96,7 +96,7 @@ function EditarPlanos() {
       };
       console.log(plano);
       try{
-        const response = await fetch(`http://localhost:4001/planos/${id}`,{
+        const response = await fetch(`${apiUrl}/planos/${id}`,{
           method : 'PUT',
           headers:{
             'Content-Type': 'application/json'

@@ -6,7 +6,7 @@ function EditarFuncionarios() {
   const [nomeValido, setNomeValido] = useState(false);
   const [senhaValida, setSenhaValida] = useState(false);
   const [setorValido, setSetorValido] = useState(false);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -61,7 +61,7 @@ function EditarFuncionarios() {
   useEffect(() => {
     const fetchFuncionario = async () => {
       try {
-        const response = await fetch(`http://localhost:4001/funcionarios/${id}`);
+        const response = await fetch(`${apiUrl}/funcionarios/${id}`);
         if (response.ok) {
           const data = await response.json();
           // Atribuir os valores recuperados aos campos de entrada diretamente
@@ -87,7 +87,7 @@ function EditarFuncionarios() {
       const nome = document.getElementById('nome').value;
       const senha = document.getElementById('senha').value;
       const setor = document.getElementById('setor').value;
-
+      
       const funcionario = {
         fun_nome: nome,
         fun_senha: senha,
@@ -95,7 +95,7 @@ function EditarFuncionarios() {
       };
 
       try {
-        const response = await fetch(`http://localhost:4001/funcionarios/${id}`, {
+        const response = await fetch(`${apiUrl}/funcionarios/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

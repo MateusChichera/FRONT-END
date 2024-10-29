@@ -5,7 +5,7 @@ function Funcionarios() {
   const [nomeValido, setNomeValido] = useState(false);
   const [senhaValida, setSenhaValida] = useState(false);
   const [setorValido, setSetorValido] = useState(false);
-
+  const apiUrl = process.env.REACT_APP_API_URL;
   // Funções de validação
   const validarNome = (nome) => {
     const regex = /^[A-Za-z\s]+$/;
@@ -68,7 +68,7 @@ function Funcionarios() {
       };
       console.log(funcionario);
       try {
-        const response = await fetch('http://localhost:4001/funcionarios', {
+        const response = await fetch(`${apiUrl}/funcionarios`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

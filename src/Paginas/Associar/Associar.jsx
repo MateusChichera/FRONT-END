@@ -8,10 +8,12 @@ function AssociarPlanos() {
   const [clienteSelecionado, setClienteSelecionado] = useState('');
   const [planos, setPlanos] = useState([]);
   const [planoSelecionado, setPlanoSelecionado] = useState('');
-  const [associado, setAssociado] = useState(false);
+  const [planoValor, setPlanoValor] = useState('');
+  const [planoDias, setPlanoDias] = useState('');
+  const [formaPagamento, setFormaPagamento] = useState('');
 
+  // Carregar clientes e planos ao montar o componente
   useEffect(() => {
-    // Função para buscar os clientes do backend
     async function fetchClientes() {
       try {
         const response = await fetch('http://localhost:4001/clientes');
@@ -23,7 +25,6 @@ function AssociarPlanos() {
       }
     }
 
-    // Função para buscar os planos do backend
     async function fetchPlanos() {
       try {
         const response = await fetch('http://localhost:4001/planos');
@@ -36,12 +37,26 @@ function AssociarPlanos() {
 
     fetchClientes();
     fetchPlanos();
-
   }, []);
+
+  // Atualiza valor e dias do plano ao selecionar um plano
+  const handlePlanoChange = (e) => {
+    const selectedPlanoId = parseInt(e.target.value);
+    setPlanoSelecionado(selectedPlanoId);
+
+    const selectedPlano = planos.find((plano) => plano.pla_id === selectedPlanoId);
+    if (selectedPlano) {
+      setPlanoValor(selectedPlano.pla_valor);
+      setPlanoDias(selectedPlano.pla_dias);
+    } else {
+      setPlanoValor('');
+      setPlanoDias('');
+    }
+  };
 
   // Filtrar clientes conforme a busca
   const filtrarClientes = (termo) => {
-    const filtered = clientes.filter(cliente =>
+    const filtered = clientes.filter((cliente) =>
       (cliente.cli_nome && cliente.cli_nome.toLowerCase().includes(termo.toLowerCase())) ||
       (cliente.cli_razao && cliente.cli_razao.toLowerCase().includes(termo.toLowerCase()))
     );
@@ -58,12 +73,12 @@ function AssociarPlanos() {
         body: JSON.stringify({
           cli_id: clienteSelecionado,
           pla_id: planoSelecionado,
-        })
+          formapagamento: formaPagamento,
+        }),
       });
 
       if (response.ok) {
         alert('Plano associado com sucesso ao cliente!');
-        setAssociado(true);
         window.location.reload(); // Atualiza a página após associação
       } else {
         const errorData = await response.json();
@@ -76,7 +91,7 @@ function AssociarPlanos() {
 
   // Função para verificar se todos os campos estão preenchidos
   const todosCamposPreenchidos = () => {
-    return clienteSelecionado && planoSelecionado
+    return clienteSelecionado && planoSelecionado && formaPagamento;
   };
 
   return (
@@ -104,7 +119,7 @@ function AssociarPlanos() {
             className="form-control"
             id="plano"
             value={planoSelecionado}
-            onChange={(e) => setPlanoSelecionado(e.target.value)}
+            onChange={handlePlanoChange}
             required
           >
             <option value="">Selecione um plano</option>
@@ -117,6 +132,35 @@ function AssociarPlanos() {
             ) : (
               <option value="">Nenhum plano disponível</option>
             )}
+          </select>
+        </div>
+
+        {/* Exibir valor e dias do plano (não editável) */}
+        <div className="form-group">
+          <label>Valor do Plano</label>
+          <input type="text" className="form-control" value={planoValor} readOnly />
+        </div>
+
+        <div className="form-group">
+          <label>Dias do Plano</label>
+          <input type="text" className="form-control" value={planoDias} readOnly />
+        </div>
+
+        {/* Select para escolher forma de pagamento */}
+        <div className="form-group">
+          <label htmlFor="formaPagamento">Forma de Pagamento</label>
+          <select
+            className="form-control"
+            id="formaPagamento"
+            value={formaPagamento}
+            onChange={(e) => setFormaPagamento(e.target.value)}
+            required
+          >
+            <option value="">Selecione uma forma de pagamento</option>
+            <option value="DINHEIRO">Dinheiro</option>
+            <option value="PIX">Pix</option>
+            <option value="CARTÃO DE DÉBITO">Cartão de Débito</option>
+            <option value="CARTÃO DE CRÉDITO">Cartão de Crédito</option>
           </select>
         </div>
 
