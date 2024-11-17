@@ -27,6 +27,9 @@ function NavBar() {
     const handleShow = () => {
         setShow(!show);
     };
+    const handleTrocaSenha = () => {
+        navigate('/trocarsenha');
+    };
 
     const handleSubmenu = () => {
         setShowSubmenu(!showSubmenu);
@@ -196,6 +199,11 @@ function NavBar() {
                         <button className="btn btn-danger w-100" onClick={handleLogout}>
                             Sair
                         </button>
+                    </li>
+                    <li className="nav-link mt-2">
+                        <a onClick={handleTrocaSenha}>
+                            Alterar senha
+                        </a>
                     </li>
                 </ul>
             </div>

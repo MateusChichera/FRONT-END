@@ -4,11 +4,11 @@ import '../Estilização/tabelas.css';
 
 function TabelaAgendamentos() {
   const [agendamentos, setAgendamentos] = useState([]);
-  const [dataBusca, setDataBusca] = useState(''); // Valor de busca (data)
+  const [dataBusca, setDataBusca] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
-  // Fetch padrão para carregar todos os agendamentos
+
   useEffect(() => {
     fetchAgendamentos();
   }, []);
@@ -26,23 +26,16 @@ function TabelaAgendamentos() {
     }
   };
 
-  // Função para buscar agendamentos por data
   const buscarAgendamentos = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(`${apiUrl}/agendamento/data`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ data: dataBusca }), // Enviando a data como JSON
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: dataBusca }),
       });
       const data = await response.json();
-      if (data && Array.isArray(data)) {
-        setAgendamentos(data); // Define os agendamentos encontrados
-      } else {
-        setAgendamentos([]); // Se não houver resultados, limpa a tabela
-      }
+      setAgendamentos(data || []);
     } catch (error) {
       alert('Erro ao buscar agendamentos: ' + error.message);
     } finally {
@@ -50,13 +43,20 @@ function TabelaAgendamentos() {
     }
   };
 
-  // Função para excluir o agendamento
+  const realizarCheck = async (id) => {
+      const response = await fetch(`${apiUrl}/agendamento/check/${id}`, { method: 'POST' });
+      const data = await response.json();
+      alert("Check-in/check-out realizado com sucesso!");
+
+      // Atualiza a lista de agendamentos
+      fetchAgendamentos();
+
+  };
+
   const excluirAgendamento = async (id) => {
     if (window.confirm('Deseja realmente excluir este agendamento?')) {
       try {
-        const response = await fetch(`${apiUrl}/agendamento/${id}`, {
-          method: 'DELETE',
-        });
+        const response = await fetch(`${apiUrl}/agendamento/${id}`, { method: 'DELETE' });
         if (response.ok) {
           alert('Agendamento excluído com sucesso');
           setAgendamentos(agendamentos.filter((agendamento) => agendamento.age_id !== id));
@@ -67,37 +67,24 @@ function TabelaAgendamentos() {
     }
   };
 
-  // Função para editar o agendamento
   const editarAgendamento = (agendamento) => {
     navigate(`/agendamento/editar/${agendamento.age_id}`, { state: agendamento });
   };
 
-  // Função para aprovar o agendamento (atualizar age_status para "aprovado")
   const aprovarAgendamento = async (id) => {
     try {
-      const response = await fetch(`${apiUrl}/agendamento/aprovar/${id}`, {
-        method: 'PUT',
-      });
-      
-        alert('Agendamento aprovado com sucesso');
-        // Atualizar a lista de agendamentos após a aprovação
-        setAgendamentos(
-          agendamentos.map((agendamento) =>
-            agendamento.age_id === id ? { ...agendamento, age_status: 'aprovado' } : agendamento
-          )
-        );
-     
+      const response = await fetch(`${apiUrl}/agendamento/aprovar/${id}`, { method: 'PUT' });
+      alert('Agendamento aprovado com sucesso');
+      fetchAgendamentos();
     } catch (error) {
       alert('Erro ao aprovar agendamento: ' + error.message);
     }
   };
 
   return (
-    <div className="mt-5 text-center"> {/* Centraliza o conteúdo */}
+    <div className="mt-5 text-center">
       <h1 className="mt-3">Lista de agendamentos</h1>
-
-      {/* Campo de busca por data */}
-      <div className="mb-3 input-group justify-content-center"> {/* Centraliza o campo de busca */}
+      <div className="mb-3 input-group justify-content-center">
         <input
           type="date"
           value={dataBusca}
@@ -105,15 +92,14 @@ function TabelaAgendamentos() {
           className="form-control input-busca"
         />
         <button className="btn btn-primary" onClick={buscarAgendamentos}>
-          🔍 {/* Lupa (emoji ou ícone) */}
+          🔍
         </button>
       </div>
 
-      {/* Tabela de agendamentos */}
       {isLoading ? (
         <p>Carregando agendamentos...</p>
       ) : (
-        <table className="table mt-3 table-striped mx-auto"> {/* Centraliza a tabela */}
+        <table className="table mt-3 table-striped mx-auto">
           <thead>
             <tr>
               <th>Cliente</th>
@@ -121,7 +107,9 @@ function TabelaAgendamentos() {
               <th>Data</th>
               <th>Horário de Início</th>
               <th>Horário de Fim</th>
-              <th>Status</th> {/* Nova coluna de status */}
+              <th>Status</th>
+              <th>Check-in</th>
+              <th>Check-out</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -134,18 +122,34 @@ function TabelaAgendamentos() {
                   <td>{new Date(agendamento.age_data).toLocaleDateString()}</td>
                   <td>{agendamento.age_horario_inicio}</td>
                   <td>{agendamento.age_horario_fim}</td>
-                  <td>{agendamento.age_status}</td> {/* Exibe o status */}
+                  <td>{agendamento.age_status}</td>
+                  <td>{agendamento.check_in ? new Date(agendamento.check_in).toLocaleString() : '—'}</td>
+                  <td>{agendamento.check_out ? new Date(agendamento.check_out).toLocaleString() : '—'}</td>
                   <td>
                     {agendamento.age_status === 'pendente' && (
-                      <>
-                        <button
-                          className="btn btn-success btn-sm me-1"
-                          onClick={() => aprovarAgendamento(agendamento.age_id)}
-                        >
-                          Aprovar
-                        </button>
-                      </>
+                      <button
+                        className="btn btn-success btn-sm me-1"
+                        onClick={() => aprovarAgendamento(agendamento.age_id)}
+                      >
+                        <i className="fas fa-check"></i> Aprovar
+                      </button>
                     )}
+                    {agendamento.age_status === 'aprovado' &&
+                      !agendamento.check_out && ( // Só exibe se check_out estiver vazio
+                        <button
+                          className={`btn ${
+                            agendamento.check_in ? 'btn-primary' : 'btn-success'
+                          } btn-sm me-1`}
+                          onClick={() => realizarCheck(agendamento.age_id)}
+                        >
+                          <i
+                            className={`fas ${
+                              agendamento.check_in ? 'fa-sign-out-alt' : 'fa-sign-in-alt'
+                            }`}
+                          ></i>{' '}
+                          {agendamento.check_in ? 'Check-out' : 'Check-in'}
+                        </button>
+                      )}
                     <button
                       className="btn btn-primary btn-sm me-1"
                       onClick={() => editarAgendamento(agendamento)}
@@ -163,7 +167,7 @@ function TabelaAgendamentos() {
               ))
             ) : (
               <tr>
-                <td colSpan="7">Nenhum agendamento encontrado.</td>
+                <td colSpan="9">Nenhum agendamento encontrado.</td>
               </tr>
             )}
           </tbody>

@@ -57,7 +57,7 @@ export const buscarCnpj = async (cnpj) => {
   // Remove todos os caracteres que não são números
   const cnpjNumerico = cnpj.replace(/[^\d]/g, '');
   
-  const response = await fetch(`${apiUrl}/cnpj/${cnpjNumerico}`);
+  const response = await fetch(`${apiUrl}/clientes/cnpj/${cnpjNumerico}`);
   if (!response.ok) throw new Error('Erro ao buscar CNPJ');
   return response.json();
 };

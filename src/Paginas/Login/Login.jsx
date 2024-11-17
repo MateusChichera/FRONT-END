@@ -41,7 +41,8 @@ const Login = () => {
             setSuccess('Login bem-sucedido!');
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('nome', response.data.nome);
-            localStorage.setItem('setor', response.data.setor); // Armazena o nome do funcionário
+            localStorage.setItem('setor', response.data.setor);
+            localStorage.setItem('usu_id', response.data.fun_id); // Armazena o nome do funcionário
             navigate('/home'); // Redireciona para a página inicial após o login
         } catch (err) {
             setError('Credenciais inválidas. Tente novamente.');

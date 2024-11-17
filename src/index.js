@@ -25,6 +25,7 @@ import AgendamentoSalas from './Paginas/Agendar/Agendar.jsx';
 import TabelaAgendamentos from './Paginas/Agendar/TabelaAgendamentos.jsx';
 import EditarAgendamento from './Paginas/Agendar/EditarAgendamentos.jsx';
 import AssociarPlanos from './Paginas/Associar/Associar.jsx';
+import TrocaSenha from './Paginas/Funcionarios/TrocaSenha.jsx';
 import PrivateRoute from './Componentes/PrivateRoute'; // Importa o componente de proteção de rota
 
 const router = createBrowserRouter([
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: '/agendamento/editar/:id',
         element: <PrivateRoute element={<EditarAgendamento />} />, // Protege a página inicial
+      },
+      {
+        path: '/trocarsenha',
+        element: <PrivateRoute element={<TrocaSenha />} />, // Protege a página inicial
       },
       {
       path: '/funcionario',
