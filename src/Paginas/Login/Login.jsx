@@ -1,7 +1,6 @@
-// src/Paginas/Login/Login.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -13,6 +12,7 @@ const Login = () => {
     const [selectedFuncionario, setSelectedFuncionario] = useState('');
     const navigate = useNavigate();
     const apiUrl = process.env.REACT_APP_API_URL;
+
     useEffect(() => {
         const fetchFuncionarios = async () => {
             try {
@@ -30,20 +30,20 @@ const Login = () => {
         e.preventDefault();
         setError('');
         setSuccess('');
-    
+
         if (!selectedFuncionario) {
             setError('Por favor, selecione um funcionário.');
             return;
         }
-    
+
         try {
             const response = await axios.post(`${apiUrl}/funcionarios/autenticar`, { id: selectedFuncionario, senha });
             setSuccess('Login bem-sucedido!');
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('nome', response.data.nome);
             localStorage.setItem('setor', response.data.setor);
-            localStorage.setItem('usu_id', response.data.fun_id); // Armazena o nome do funcionário
-            navigate('/home'); // Redireciona para a página inicial após o login
+            localStorage.setItem('usu_id', response.data.fun_id);
+            navigate('/home');
         } catch (err) {
             setError('Credenciais inválidas. Tente novamente.');
         }
@@ -83,6 +83,9 @@ const Login = () => {
             </form>
             {error && <p className="error">{error}</p>}
             {success && <p className="success">{success}</p>}
+            <div className="forgot-password">
+                <Link to="/redefinir-senha">Esqueceu a senha?</Link>
+            </div>
         </div>
     );
 };

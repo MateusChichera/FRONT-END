@@ -27,11 +27,16 @@ import EditarAgendamento from './Paginas/Agendar/EditarAgendamentos.jsx';
 import AssociarPlanos from './Paginas/Associar/Associar.jsx';
 import TrocaSenha from './Paginas/Funcionarios/TrocaSenha.jsx';
 import PrivateRoute from './Componentes/PrivateRoute'; // Importa o componente de proteção de rota
+import RedefinirSenha from './Paginas/Login/Redefinirsenha.jsx';
 
 const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/redefinir-senha',
+    element: <RedefinirSenha />,
   },
   {
     element: <NavBar />, // Navbar será usado como layout para páginas protegidas

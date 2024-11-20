@@ -84,10 +84,13 @@ function AgendamentoSalas() {
     }
   };
 
+  // A função para agendar, que agora vai garantir que o telefone esteja formatado corretamente
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
     if (disponivel) {
       try {
+        // Faz o agendamento
         const response = await fetch(`${apiUrl}/agendamento`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -99,9 +102,10 @@ function AgendamentoSalas() {
             age_horario_fim: horarioFim
           })
         });
+  
         if (response.ok) {
           alert('Sala agendada com sucesso');
-          window.location.reload();
+        window.location.reload();
         } else {
           const errorData = await response.json();
           alert(`Erro ao agendar sala: ${errorData.message}`);
@@ -111,6 +115,10 @@ function AgendamentoSalas() {
       }
     }
   };
+  
+
+  
+  
 
   // Função para verificar se todos os campos estão preenchidos
   const todosCamposPreenchidos = () => {

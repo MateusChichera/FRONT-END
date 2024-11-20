@@ -60,11 +60,13 @@ function Funcionarios() {
       const nome = document.getElementById('nome').value;
       const senha = document.getElementById('senha').value;
       const setor = document.getElementById('setor').value;
+      const email = document.getElementById('email').value
 
       const funcionario = {
         fun_nome: nome,
         fun_senha: senha,
         fun_setor: setor,
+        fun_email: email,
       };
       console.log(funcionario);
       try {
@@ -105,6 +107,15 @@ function Funcionarios() {
           id="nome"
           placeholder="Nome"
           onBlur={handleNomeBlur}
+        />
+        <p id="nomeAviso" className="text-danger"></p>
+      </div>
+      <div className="form-group">
+        <label htmlFor="nome">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Email"
         />
         <p id="nomeAviso" className="text-danger"></p>
       </div>
