@@ -28,6 +28,10 @@ import AssociarPlanos from './Paginas/Associar/Associar.jsx';
 import TrocaSenha from './Paginas/Funcionarios/TrocaSenha.jsx';
 import PrivateRoute from './Componentes/PrivateRoute'; // Importa o componente de proteção de rota
 import RedefinirSenha from './Paginas/Login/Redefinirsenha.jsx';
+import RelatorioUtilizacaoSalas from './Paginas/Relatorios/Utilização.jsx';
+import RelatorioCheckInCheckOut from './Paginas/Relatorios/Checks.jsx';
+import Leads from './Paginas/Relatorios/Leads.jsx';
+import RelatorioPlanosPorCliente from './Paginas/Relatorios/Planos.jsx';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +48,22 @@ const router = createBrowserRouter([
       {
         path: '/editar/funcionarios/:id',
         element: <PrivateRoute element={< EditarFuncionarios/>} />, // Protege a página inicial
+      },
+      {
+        path: '/relatorio/utilizacao',
+        element: <PrivateRoute element={< RelatorioUtilizacaoSalas/>} />, // Protege a página inicial
+      },
+      {
+        path: '/relatorio/planos',
+        element: <PrivateRoute element={< RelatorioPlanosPorCliente/>} />, // Protege a página inicial
+      },
+      {
+        path: '/relatorio/leads',
+        element: <PrivateRoute element={< Leads/>} />, // Protege a página inicial
+      },
+      {
+        path: '/relatorio/check',
+        element: <PrivateRoute element={< RelatorioCheckInCheckOut/>} />, // Protege a página inicial
       },
       {
         path: '/buscar/funcionarios',

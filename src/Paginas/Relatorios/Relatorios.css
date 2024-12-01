@@ -1,0 +1,31 @@
+.relatorio-container {
+    padding: 20px;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters div {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+.actions button {
+    margin-right: 10px;
+}

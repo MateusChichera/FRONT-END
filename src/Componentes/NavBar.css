@@ -114,3 +114,14 @@
 .menu-button.active {
     display: none;
 }
+#sidebar {
+    width: 250px; /* Ajuste conforme necessário */
+    position: fixed;
+    height: 100%;
+    left: 0;
+}
+
+#content {
+    margin-left: 250px; /* Garante que o conteúdo não sobreponha o menu */
+    padding: 20px;
+}

@@ -12,7 +12,10 @@ import {
     FaClipboard, 
     FaCalendarAlt, 
     FaSearch, 
-    FaPlusCircle 
+    FaPlusCircle, 
+    FaFileAlt, // Ícone para Relatórios
+    FaSignInAlt, // Ícone para Check-in/Check-out
+    FaChartLine // Ícone para Vendas
 } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
@@ -20,7 +23,8 @@ function NavBar() {
     const [show, setShow] = useState(true);
     const [showSubmenu, setShowSubmenu] = useState(false);
     const [showBuscarSubmenu, setShowBuscarSubmenu] = useState(false);
-    const [showAgendamentoSubmenu, setShowAgendamentoSubmenu] = useState(false); 
+    const [showAgendamentoSubmenu, setShowAgendamentoSubmenu] = useState(false);
+    const [showRelatorioSubmenu, setShowRelatorioSubmenu] = useState(false); // Estado para o submenu de Relatórios
     const [userName, setUserName] = useState('');
     const [userSetor, setUserSetor] = useState('');
     const navigate = useNavigate();
@@ -38,16 +42,25 @@ function NavBar() {
         setShowSubmenu(!showSubmenu);
         setShowBuscarSubmenu(false);
         setShowAgendamentoSubmenu(false);
+        setShowRelatorioSubmenu(false); // Fechar o submenu de Relatórios ao abrir outro submenu
     };
     const handleBuscarSubmenu = () => {
         setShowBuscarSubmenu(!showBuscarSubmenu);
         setShowSubmenu(false);
         setShowAgendamentoSubmenu(false);
+        setShowRelatorioSubmenu(false); // Fechar o submenu de Relatórios ao abrir outro submenu
     };
     const handleAgendamentoSubmenu = () => {
         setShowAgendamentoSubmenu(!showAgendamentoSubmenu);
         setShowBuscarSubmenu(false);
         setShowSubmenu(false);
+        setShowRelatorioSubmenu(false); // Fechar o submenu de Relatórios ao abrir outro submenu
+    };
+    const handleRelatorioSubmenu = () => {
+        setShowRelatorioSubmenu(!showRelatorioSubmenu); // Alterna o submenu de Relatórios
+        setShowBuscarSubmenu(false);
+        setShowSubmenu(false);
+        setShowAgendamentoSubmenu(false);
     };
     const handleLogout = () => {
         localStorage.clear();
@@ -172,7 +185,6 @@ function NavBar() {
                             </ul>
                         )}
                     </li>
-
                     {/* Menu Agendamentos */}
                     <li className="nav-link">
                         <div onClick={handleAgendamentoSubmenu} style={{ cursor: 'pointer' }}>
@@ -192,16 +204,57 @@ function NavBar() {
                         )}
                     </li>
 
+
+                    {/* Menu Relatórios */}
                     <li className="nav-link">
-                        <button className="btn btn-danger w-100" onClick={handleLogout}>
-                            Sair
-                        </button>
+                        <div onClick={handleRelatorioSubmenu} style={{ cursor: 'pointer' }}>
+                            <FaFileAlt />
+                            <span className="mx-2" style={{ color: 'white' }}>Relatórios</span>
+                            {showRelatorioSubmenu ? <FaChevronUp className="mx-2" /> : <FaChevronDown className="mx-2" />}
+                        </div>
+                        {showRelatorioSubmenu && (
+                            <ul className="nav flex-column text-white w-100 submenu">
+                                <li className="nav-link">
+                                    <Link to='/relatorio/utilizacao'>
+                                        <FaClipboard />
+                                        <span className="mx-2" style={{ color: 'white' }}>Utilização de Salas</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-link">
+                                    <Link to='/relatorio/check'>
+                                        <FaSignInAlt />
+                                        <span className="mx-2" style={{ color: 'white' }}>Check-in / Check-out</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-link">
+                                    <Link to='/relatorio/leads'>
+                                        <FaChartLine />
+                                        <span className="mx-2" style={{ color: 'white' }}>Leads</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-link">
+                                    <Link to='/relatorio/planos'>
+                                        <FaFileAlt />
+                                        <span className="mx-2" style={{ color: 'white' }}>Planos por Cliente</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+                    </li>
+
+                    {/* Logout */}
+                    <li className="nav-link">
+                        <div onClick={handleLogout}>
+                            <FaSignInAlt />
+                            <span className="mx-2" style={{ color: 'white' }}>Logout</span>
+                        </div>
                     </li>
                 </ul>
             </div>
-            <div className="p-1 my-container"></div>
-            <div style={{ paddingLeft: show ? '250px' : '0' }}>
-                <Container>
+
+            {/* Conteúdo da Página */}
+            <div id="content">
+                <Container fluid>
                     <Outlet />
                 </Container>
             </div>

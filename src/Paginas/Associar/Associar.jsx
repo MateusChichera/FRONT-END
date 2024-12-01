@@ -11,7 +11,7 @@ function AssociarPlanos() {
   const [planoValor, setPlanoValor] = useState('');
   const [planoDias, setPlanoDias] = useState('');
   const [formaPagamento, setFormaPagamento] = useState('');
-
+  const dataAtual = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
   // Carregar clientes e planos ao montar o componente
   useEffect(() => {
     async function fetchClientes() {
@@ -74,6 +74,7 @@ function AssociarPlanos() {
           cli_id: clienteSelecionado,
           pla_id: planoSelecionado,
           formapagamento: formaPagamento,
+          data: dataAtual,  
         }),
       });
 
