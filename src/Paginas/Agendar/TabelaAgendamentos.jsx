@@ -134,7 +134,7 @@ function TabelaAgendamentos() {
                         <i className="fas fa-check"></i> Aprovar
                       </button>
                     )}
-                    {agendamento.age_status === 'aprovado' &&
+                    {agendamento.age_status === 'check-in' &&
                       !agendamento.check_out && ( // Só exibe se check_out estiver vazio
                         <button
                           className={`btn ${

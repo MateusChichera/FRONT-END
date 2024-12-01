@@ -1,62 +1,59 @@
 import './NavBar.css';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { FaBars, FaCogs, FaHome, FaChevronDown, FaChevronUp, FaChevronLeft } from 'react-icons/fa';
+import { 
+    FaBars, 
+    FaCogs, 
+    FaHome, 
+    FaChevronDown, 
+    FaChevronUp, 
+    FaChevronLeft, 
+    FaUser, 
+    FaClipboard, 
+    FaCalendarAlt, 
+    FaSearch, 
+    FaPlusCircle 
+} from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
 function NavBar() {
     const [show, setShow] = useState(true);
     const [showSubmenu, setShowSubmenu] = useState(false);
     const [showBuscarSubmenu, setShowBuscarSubmenu] = useState(false);
-    const [showAgendamentoSubmenu, setShowAgendamentoSubmenu] = useState(false); // Novo estado para o submenu de agendamentos
+    const [showAgendamentoSubmenu, setShowAgendamentoSubmenu] = useState(false); 
     const [userName, setUserName] = useState('');
-    const [userSetor, setUserSetor] = useState(''); // Adiciona estado para o setor do usuário
+    const [userSetor, setUserSetor] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         const storedUserName = localStorage.getItem('nome');
-        const storedUserSetor = localStorage.getItem('setor'); // Recupera o setor do localStorage
-        if (storedUserName) {
-            setUserName(storedUserName);
-        }
-        if (storedUserSetor) {
-            setUserSetor(storedUserSetor); // Define o setor no estado
-        }
+        const storedUserSetor = localStorage.getItem('setor');
+        if (storedUserName) setUserName(storedUserName);
+        if (storedUserSetor) setUserSetor(storedUserSetor);
     }, []);
 
-    const handleShow = () => {
-        setShow(!show);
-    };
-    const handleTrocaSenha = () => {
-        navigate('/trocarsenha');
-    };
-
+    const handleShow = () => setShow(!show);
+    const handleTrocaSenha = () => navigate('/trocarsenha');
     const handleSubmenu = () => {
         setShowSubmenu(!showSubmenu);
-        setShowBuscarSubmenu(false); // Fecha o submenu de buscar ao abrir o submenu de cadastrar
-        setShowAgendamentoSubmenu(false); // Fecha o submenu de agendamentos
+        setShowBuscarSubmenu(false);
+        setShowAgendamentoSubmenu(false);
     };
-
     const handleBuscarSubmenu = () => {
         setShowBuscarSubmenu(!showBuscarSubmenu);
-        setShowSubmenu(false); // Fecha o submenu de cadastrar ao abrir o submenu de buscar
-        setShowAgendamentoSubmenu(false); // Fecha o submenu de agendamentos
+        setShowSubmenu(false);
+        setShowAgendamentoSubmenu(false);
     };
-
     const handleAgendamentoSubmenu = () => {
-        setShowAgendamentoSubmenu(!showAgendamentoSubmenu); // Alterna o submenu de agendamentos
-        setShowBuscarSubmenu(false); // Fecha o submenu de buscar
-        setShowSubmenu(false); // Fecha o submenu de cadastrar
+        setShowAgendamentoSubmenu(!showAgendamentoSubmenu);
+        setShowBuscarSubmenu(false);
+        setShowSubmenu(false);
     };
-
     const handleLogout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('nome');
-        localStorage.removeItem('setor');
+        localStorage.clear();
         navigate('/login');
     };
 
-    // Funções para checar permissões
     const isAdministrador = userSetor === 'administrador';
     const isFinanceiro = userSetor === 'financeiro';
     const isSecretaria = userSetor === 'secretaria';
@@ -69,7 +66,7 @@ function NavBar() {
                 </button>
                 <ul className="nav flex-column text-white w-100">
                     <li className="nav-link">
-                        <span className="h3 text-white my-2">Olá,{userName} ({userSetor})</span>
+                        <span className="h3 text-white my-2">Olá, {userName} ({userSetor})</span>
                     </li>
                     <li className="nav-link">
                         <Link to='/home'>
@@ -78,10 +75,10 @@ function NavBar() {
                         </Link>
                     </li>
 
-                    {/* Menu Cadastrar - Verificar permissões */}
+                    {/* Menu Cadastrar */}
                     <li className="nav-link">
                         <div onClick={handleSubmenu} style={{ cursor: 'pointer' }}>
-                            <FaCogs />
+                            <FaPlusCircle />
                             <span className="mx-2" style={{ color: 'white' }}>Cadastrar</span>
                             {showSubmenu ? <FaChevronUp className="mx-2" /> : <FaChevronDown className="mx-2" />}
                         </div>
@@ -90,21 +87,21 @@ function NavBar() {
                                 {!isSecretaria && (
                                     <li className="nav-link">
                                         <Link to='/salas'>
-                                            <FaCogs />
+                                            <FaClipboard />
                                             <span className="mx-2" style={{ color: 'white' }}>Sala</span>
                                         </Link>
                                     </li>
                                 )}
                                 <li className="nav-link">
                                     <Link to='/clientes'>
-                                        <FaCogs />
+                                        <FaUser />
                                         <span className="mx-2" style={{ color: 'white' }}>Cliente</span>
                                     </Link>
                                 </li>
                                 {!isSecretaria && (
                                     <li className="nav-link">
                                         <Link to='/planos'>
-                                            <FaCogs />
+                                            <FaClipboard />
                                             <span className="mx-2" style={{ color: 'white' }}>Plano</span>
                                         </Link>
                                     </li>
@@ -112,14 +109,14 @@ function NavBar() {
                                 {!isSecretaria && !isFinanceiro && (
                                     <li className="nav-link">
                                         <Link to='/funcionario'>
-                                            <FaCogs />
+                                            <FaUser />
                                             <span className="mx-2" style={{ color: 'white' }}>Funcionario</span>
                                         </Link>
                                     </li>
                                 )}
                                 <li className="nav-link">
                                     <Link to='/associar'>
-                                        <FaCogs />
+                                        <FaClipboard />
                                         <span className="mx-2" style={{ color: 'white' }}>Associar Planos</span>
                                     </Link>
                                 </li>
@@ -127,10 +124,10 @@ function NavBar() {
                         )}
                     </li>
 
-                    {/* Menu Buscar - Verificar permissões */}
+                    {/* Menu Buscar */}
                     <li className="nav-link">
                         <div onClick={handleBuscarSubmenu} style={{ cursor: 'pointer' }}>
-                            <FaCogs />
+                            <FaSearch />
                             <span className="mx-2" style={{ color: 'white' }}>Buscar</span>
                             {showBuscarSubmenu ? <FaChevronUp className="mx-2" /> : <FaChevronDown className="mx-2" />}
                         </div>
@@ -139,21 +136,21 @@ function NavBar() {
                                 {!isSecretaria && (
                                     <li className="nav-link">
                                         <Link to='/buscar/salas'>
-                                            <FaCogs />
+                                            <FaClipboard />
                                             <span className="mx-2" style={{ color: 'white' }}>Salas</span>
                                         </Link>
                                     </li>
                                 )}
                                 <li className="nav-link">
                                     <Link to='/buscar'>
-                                        <FaCogs />
+                                        <FaSearch />
                                         <span className="mx-2" style={{ color: 'white' }}>Clientes</span>
                                     </Link>
                                 </li>
                                 {!isSecretaria && (
                                     <li className="nav-link">
                                         <Link to='/buscar/planos'>
-                                            <FaCogs />
+                                            <FaClipboard />
                                             <span className="mx-2" style={{ color: 'white' }}>Planos</span>
                                         </Link>
                                     </li>
@@ -161,14 +158,14 @@ function NavBar() {
                                 {!isSecretaria && !isFinanceiro && (
                                     <li className="nav-link">
                                         <Link to='/buscar/funcionarios'>
-                                            <FaCogs />
+                                            <FaUser />
                                             <span className="mx-2" style={{ color: 'white' }}>Funcionarios</span>
                                         </Link>
                                     </li>
                                 )}
                                 <li className="nav-link">
                                     <Link to='/buscar/agendamentos'>
-                                        <FaCogs />
+                                        <FaCalendarAlt />
                                         <span className="mx-2" style={{ color: 'white' }}>Agendamentos</span>
                                     </Link>
                                 </li>
@@ -179,7 +176,7 @@ function NavBar() {
                     {/* Menu Agendamentos */}
                     <li className="nav-link">
                         <div onClick={handleAgendamentoSubmenu} style={{ cursor: 'pointer' }}>
-                            <FaCogs />
+                            <FaCalendarAlt />
                             <span className="mx-2" style={{ color: 'white' }}>Agendamentos</span>
                             {showAgendamentoSubmenu ? <FaChevronUp className="mx-2" /> : <FaChevronDown className="mx-2" />}
                         </div>
@@ -187,7 +184,7 @@ function NavBar() {
                             <ul className="nav flex-column text-white w-100 submenu">
                                 <li className="nav-link">
                                     <Link to='/agendar'>
-                                        <FaCogs />
+                                        <FaCalendarAlt />
                                         <span className="mx-2" style={{ color: 'white' }}>Agendar</span>
                                     </Link>
                                 </li>
@@ -199,11 +196,6 @@ function NavBar() {
                         <button className="btn btn-danger w-100" onClick={handleLogout}>
                             Sair
                         </button>
-                    </li>
-                    <li className="nav-link mt-2">
-                        <a onClick={handleTrocaSenha}>
-                            Alterar senha
-                        </a>
                     </li>
                 </ul>
             </div>

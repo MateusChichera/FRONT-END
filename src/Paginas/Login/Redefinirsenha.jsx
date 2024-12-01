@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Importando useNavigate para redirecionamento
-import './Redefinirsenha.css';
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const RedefinirSenha = () => {
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
     const apiUrl = process.env.REACT_APP_API_URL;
-    const navigate = useNavigate();  // Instanciando o hook para redirecionamento
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +21,7 @@ const RedefinirSenha = () => {
 
             // Redireciona para a tela de login após 3 segundos
             setTimeout(() => {
-                navigate('/login');  // Altere '/login' para a rota correta do seu sistema
+                navigate('/login');
             }, 3000);
         } catch (err) {
             setError('Erro ao solicitar redefinição de senha. Tente novamente.');
@@ -30,25 +30,26 @@ const RedefinirSenha = () => {
 
     return (
         <div className="redefinir-container">
-            <h2>Redefinir Senha</h2>
+            <h1>Redefinir Senha</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        className="form-control"
                         required
                     />
                 </div>
-                <button type="submit">Enviar</button>
+                <button type="submit" className="btn btn-gravar">Enviar</button>
             </form>
             {success && <p className="success">{success}</p>}
             {error && <p className="error">{error}</p>}
             
             {/* Botão para voltar à tela de login */}
-            <button onClick={() => navigate('/login')} className="back-button">Voltar para Login</button>
+            <button onClick={() => navigate('/login')} className="btn btn-editar">Voltar para Login</button>
         </div>
     );
 };
