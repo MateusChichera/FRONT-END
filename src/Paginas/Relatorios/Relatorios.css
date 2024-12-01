@@ -29,3 +29,22 @@ table th, table td {
 .actions button {
     margin-right: 10px;
 }
+
+
+
+.filters {
+    display: flex;
+    justify-content: space-between; /* Distribui os elementos uniformemente */
+    align-items: center;
+    flex-wrap: wrap; /* Garante que a tela responsiva funcione bem */
+    gap: 15px; /* Espaçamento entre os elementos */
+}
+
+.filters div {
+    flex: 1; /* Faz cada filtro ocupar o mesmo espaço */
+    min-width: 150px; /* Evita que fiquem muito pequenos em telas menores */
+}
+
+.filters button {
+    flex: 0 0 auto; /* Botão não cresce, mas mantém sua posição */
+}

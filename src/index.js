@@ -32,6 +32,7 @@ import RelatorioUtilizacaoSalas from './Paginas/Relatorios/Utilização.jsx';
 import RelatorioCheckInCheckOut from './Paginas/Relatorios/Checks.jsx';
 import Leads from './Paginas/Relatorios/Leads.jsx';
 import RelatorioPlanosPorCliente from './Paginas/Relatorios/Planos.jsx';
+import RelatorioVendasMensal from './Paginas/Relatorios/VendasMensal.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: '/editar/funcionarios/:id',
         element: <PrivateRoute element={< EditarFuncionarios/>} />, // Protege a página inicial
+      },
+      {
+        path: '/relatorio/vendas',
+        element: <PrivateRoute element={< RelatorioVendasMensal/>} />, // Protege a página inicial
       },
       {
         path: '/relatorio/utilizacao',

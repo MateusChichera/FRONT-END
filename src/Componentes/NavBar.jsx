@@ -15,7 +15,8 @@ import {
     FaPlusCircle, 
     FaFileAlt, // Ícone para Relatórios
     FaSignInAlt, // Ícone para Check-in/Check-out
-    FaChartLine // Ícone para Vendas
+    FaChartLine, // Ícone para Vendas
+    FaFileContract
 } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
@@ -236,6 +237,12 @@ function NavBar() {
                                     <Link to='/relatorio/planos'>
                                         <FaFileAlt />
                                         <span className="mx-2" style={{ color: 'white' }}>Planos por Cliente</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-link">
+                                    <Link to='/relatorio/vendas'>
+                                        <FaFileContract />
+                                        <span className="mx-2" style={{ color: 'white' }}>Vendas</span>
                                     </Link>
                                 </li>
                             </ul>

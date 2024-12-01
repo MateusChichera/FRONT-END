@@ -49,11 +49,11 @@ const RelatorioUtilizacaoSalas = () => {
     };
 
     const filteredData = relatorioData.filter((item) => {
-        // Lógica de filtragem de data
+        
         const dateMatch = !filters.data || 
             (new Date(item.age_data_formatada).toDateString() === new Date(filters.data).toDateString());
 
-        // Lógica de filtragem de status
+       
         const statusMatch = Object.keys(filters.status).some(status => filters.status[status] && item.age_status === status);
 
         // Lógica de filtragem de sala
